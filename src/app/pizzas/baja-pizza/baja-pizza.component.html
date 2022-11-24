@@ -1,0 +1,77 @@
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+      <div class="card-header py-3 text-bg-primary border-primary">
+        <h4 class="my-0 fw-normal">BORRAR</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mt-3 mb-4">
+          <form class="needs-validation" [formGroup]="registrarForm">
+            <div class="row">
+              <!--  id -->
+              <input type="text" class="form-control" formControlName="id" hidden>
+              <!--  Nombre -->
+              <div class="input-group mb-3">
+                <span class="input-group-text" >Nombre</span>
+                <input type="text" class="form-control" formControlName="nombre" disabled>
+                <span class="text-danger"
+                *ngIf="registrarForm.get('nombre')?.hasError('required') && registrarForm.get('nombre')?.touched">
+                    El Nombre <strong>es requerido</strong>
+                </span>
+                <span class="text-danger"
+                *ngIf="registrarForm.get('nombre')?.hasError('minlength') && registrarForm.get('nombre')?.touched">
+                    Nombre como minimo <strong>debe tener 4 caracteres</strong>
+                </span>
+              </div> <!-- Fin nombre-->
+                <!--  Ingredientes -->
+              <div class="input-group mb-3">
+                <span class="input-group-text">Ingredientes</span>
+                <input type="text" class="form-control" formControlName="ingredientes" disabled>
+                <span class="text-danger"
+                  *ngIf="registrarForm.get('ingredientes')?.hasError('required') && registrarForm.get('ingredientes')?.touched">
+                      Los ingredientes <strong>son requerido</strong>
+                  </span>
+                  <span class="text-danger"
+                  *ngIf="registrarForm.get('ingredientes')?.hasError('minlength') && registrarForm.get('ingredientes')?.touched">
+                      Ingredientes como minimo <strong>debe tener 6 caracteres</strong>
+                  </span>
+              </div> <!-- Fin Ingredientes-->
+                <!-- Precio -->
+                <div class="input-group mb-3">
+                  <span class="input-group-text" >Precio</span>
+                  <input type="number" class="form-control" formControlName="precio" disabled>
+                  <span class="text-danger"
+                  *ngIf="registrarForm.get('precio')?.hasError('required') && registrarForm.get('precio')?.touched">
+                      El precio <strong>es requerido</strong>
+                  </span>
+                  <span class="text-danger"
+                  *ngIf="registrarForm.get('precio')?.hasError('minlength') && registrarForm.get('precio')?.touched">
+                    Precio minimo <strong>debe tener al menos $ 1 </strong>
+                  </span>
+                </div>  <!--Fin Precio -->
+                <!-- Peso -->
+                <div class="input-group mb-3">
+                  <span class="input-group-text" >Peso</span>
+                  <input type="number" class="form-control" placeholder="min 500 max 1000 " formControlName="peso" disabled>
+                  <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('required') && registrarForm.get('peso')?.touched">
+                          El Precio <strong>es requerido</strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('min') && registrarForm.get('peso')?.touched">
+                        Peso como mínimo <strong>500 - como | máximo 1000 </strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('max') && registrarForm.get('peso')?.touched">
+                        Peso como mínimo <strong>500 - como máximo 1000 </strong>
+                      </span>
+                </div>  <!--Fin Peso -->
+            </div>  <!-- Fin row-->
+          </form>  
+        </ul>
+        <button [disabled]="registrarForm.invalid" (click)="borrarPizza()" class="btn btn-primary btn-lg" >Borrar</button>
+        <button (click)="limpiar()" class="btn btn-primary btn-lg float-right" >Limpiar</button>
+      </div>
+    </div>
+</div>
+  
+  

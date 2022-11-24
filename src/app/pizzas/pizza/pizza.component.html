@@ -1,0 +1,34 @@
+<app-menu-gral></app-menu-gral>
+<div class="container">
+    <br><br><br>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <app-alta-pizza></app-alta-pizza>
+        <app-modifica-pizza [actualDetallePizza]="actualPizza"></app-modifica-pizza> 
+        <app-baja-pizza     [actualDetallePizza]="actualPizza"></app-baja-pizza>
+        <!-- <app-modifica-pizza [saludoHijo]="salud" [actualDetallePizza]="actualPizza"></app-modifica-pizza> -->
+    </div>
+   <!--  <app-tabla-pizza [listadoPizzas]="pizzasEnviadas" (onPizzaSeleccionada)="mostrarDetallePizza($event)"></app-tabla-pizza>   -->
+
+   <h2 class="display-6 text-center mb-4">LISTA DE PIZZAS</h2>
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th style="width: 34%;">Nombre</th>
+              <th style="width: 22%;">Ingredientes</th>
+              <th style="width: 22%;">Precio</th>
+              <th style="width: 22%;">Peso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaPizza">
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.ingredientes }}</td>
+              <td>{{ item.precio }}</td>
+              <td>{{ item.peso }}</td>
+              <td><button type="button" class=" btn btn-info btn-circle btn-warning" (click)="mostrarDetallePizza(item)"></button></td> 
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>    

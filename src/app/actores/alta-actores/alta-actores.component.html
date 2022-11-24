@@ -1,0 +1,121 @@
+<app-menu-gral></app-menu-gral>
+<br><br><br><br>
+<div class="container">
+    <div *ngIf='loading' class="d-flex justify-content-center mt-5">
+        <app-spinner></app-spinner>
+    </div>
+    <div class="py-5 text-center">
+        <h2>ALTA DE REPARTIDOR</h2>
+    </div>
+    <div *ngIf='!loading' class="row">
+        <!--Tabla banderas-->
+        <div class="col-md-4 order-md-2 mb-4"> 
+            <div class="animate__animated animate__fadeIn animate__faster">
+                    <h3>Buscar por Región <small> {{ regionActiva | titlecase }} </small></h3>
+                    <hr>
+                    <h5>Seleccione la Región</h5>
+                    <div class="row">
+                        <div class="col">
+                            <button *ngFor="let region of regiones"
+                                    [class]="getClaseCSS( region )"
+                                    (click)="activarRegion( region )">
+                                {{ region | titlecase }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="paises.length > 0" class="row">
+                    <div class="col">
+                        <app-pais-tabla [paises]="paises" (newPaisEvent)="addPais($event)"></app-pais-tabla>
+                    </div>
+                </div>
+        </div> 
+         <!--Datos actor-->
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Datos personales</h4>
+            <form class="needs-validation" [formGroup]="registrarForm" (ngSubmit)="registarRepartidor()">
+                <div class="row">
+                   <!--  Nombre -->
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" formControlName = 'nombre'>
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('nombre')?.hasError('required') && registrarForm.get('nombre')?.touched">
+                                El Nombre <strong>es requerido</strong>
+                            </span>
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('nombre')?.hasError('minlength') && registrarForm.get('nombre')?.touched">
+                                Nombre como minimo <strong>debe tener 4 caracteres</strong>
+                            </span>
+                    </div>
+                    <!-- DNI -->
+                    <div class="col-md-6 mb-3">
+                        <label for="dni">DNI:</label>
+                        <input type="number" class="form-control" formControlName="dni">
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('dni')?.hasError('required') && registrarForm.get('dni')?.touched">
+                                El DNI <strong>es requerido</strong>
+                            </span>
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('dni')?.hasError('minlength') && registrarForm.get('dni')?.touched">
+                                DNI como minimo <strong>debe tener 4 caracteres</strong>
+                            </span>
+                    </div>
+                    <!-- Edad -->
+                    <div class="col-md-6 mb-3">
+                        <label for="edad">EDAD </label>
+                        <input type="number" class="form-control" formControlName="edad">
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('edad')?.hasError('required') && registrarForm.get('edad')?.touched">
+                                La edad <strong>es requerido</strong>
+                            </span>
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('edad')?.hasError('edad') && registrarForm.get('edad')?.touched">
+                                Edad <strong>invalido</strong>
+                            </span>
+                    </div>
+                    <!-- capcidad -->
+                    <div class="col-md-6 mb-3">
+                        <label for="direccion">Capcidad:</label>
+                        <input type="text" class="form-control" formControlName="capcidad">
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('capcidad')?.hasError('required') && registrarForm.get('capcidad')?.touched">
+                                La Dirección <strong>es requerido</strong>
+                            </span>
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('capcidad')?.hasError('minlength') && registrarForm.get('capcidad')?.touched">
+                                Dirección como minimo <strong>debe tener 4 caracteres</strong>
+                            </span>
+                    </div>
+                    <!-- unidad -->
+                    <div class="col-md-6 mb-3">
+                        <label for="unidad">Unidad [SI]</label>
+                        <input type="radio" class="form-control" name="unidad" value="SI" formControlName="unidad">
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('unidad')?.hasError('required') && registrarForm.get('unidad')?.touched">
+                                La Unidad <strong>es requerida</strong>
+                            </span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="unidad">Unidad [NO]</label>
+                        <input type="radio" class="form-control" name="unidad" value="NO" formControlName="unidad">
+                            <span class="text-danger"
+                            *ngIf="registrarForm.get('unidad')?.hasError('required') && registrarForm.get('unidad')?.touched">
+                                La Unidad <strong>es requerida</strong>
+                            </span>
+                    </div>
+                </div>
+                <!-- País -->
+                <div class="col-md-6 mb-3">
+                    <label for="pais">País:</label>
+                    <input type="text" class="form-control"  placeholder="{{pais}}" 
+                    formControlNamevalue="pais" readonly>      
+                </div>
+                <hr class="mb-4">
+                <div class="col-md-12 text-center">
+                    <button type="submit" [disabled]="registrarForm.invalid" class="btn btn-primary btn-lg center-block">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

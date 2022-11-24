@@ -1,0 +1,28 @@
+<h1 class="display-3">Repartidor detalle</h1>
+<p>Se debe utilizar tanto como grilla, con la posibilidad de intercalar la vista entre ambas.</p>
+<table *ngIf="vista" class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Seleccionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let itemactor of listadoActores">
+        <td>{{itemactor.nombre}}</td>
+        <td>{{itemactor.dni}}</td>
+        <td><button type="button" class=" btn btn-info btn-circle btn-warning" (click)="mostrarDetalleActor(itemactor)"></button></td>  <!-- Detalle -->
+      </tr>
+    </tbody>
+  </table>
+  
+  <div *ngIf="!vista"  class="wrapper">
+  
+    <div (click)="mostrarDetalleActor(itemactor)" *ngFor="let itemactor of listadoActores">
+        <span>{{itemactor.nombre}} </span>
+        <span>{{itemactor.dni}}</span>
+    </div>
+  </div>
+  <br>
+  <p><a class="btn btn-primary btn-lg" (click)="CambiarVista()" role="button">Cambiar vista  </a></p>

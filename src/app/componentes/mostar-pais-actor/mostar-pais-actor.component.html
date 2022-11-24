@@ -1,0 +1,27 @@
+<div class="container" >
+  <h2>País del Repartidor</h2>
+  <div class="col-md-12">
+    <!-- <strong><span>{{actorDetalle.apellido}} </span></strong> -->
+    <strong><span> Nombre : </span></strong> {{actorDetalle.nombre}}
+    <br>
+    <strong><span> País   : </span></strong> {{actorDetalle.pais}}
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Región</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Bandera</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itempais of paises">
+            <td>{{itempais.region}}</td>
+            <td>{{itempais.capital}}</td>
+            <td><img width="80 px" [src]="itempais.flags.png"></td>
+          </tr>
+        </tbody>
+      </table>
+    <!-- <button class="btn btn-secondary" (click)="Volver()" role="button">Limpiar</button> -->
+  </div>
+</div>

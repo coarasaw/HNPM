@@ -1,0 +1,126 @@
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">ALTA</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mt-3 mb-4">
+          <form class="needs-validation" [formGroup]="registrarForm" (ngSubmit)="registrarPizza()">
+            <div class="row">
+              <!--  Nombre -->
+              <div class="input-group mb-3">
+                <span class="input-group-text" >Nombre</span>
+                <input type="text" class="form-control" formControlName="nombre">
+                <span class="text-danger"
+                *ngIf="registrarForm.get('nombre')?.hasError('required') && registrarForm.get('nombre')?.touched">
+                    El Nombre <strong>es requerido</strong>
+                </span>
+                <span class="text-danger"
+                *ngIf="registrarForm.get('nombre')?.hasError('minlength') && registrarForm.get('nombre')?.touched">
+                    Nombre como minimo <strong>debe tener 4 caracteres</strong>
+                </span>
+              </div><!-- Fin nombre-->
+              <!-- <div class="col-md-6 mb-3">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" formControlName = 'nombre'>
+                    <span class="text-danger"
+                    *ngIf="registrarForm.get('nombre')?.hasError('required') && registrarForm.get('nombre')?.touched">
+                        El Nombre <strong>es requerido</strong>
+                    </span>
+                    <span class="text-danger"
+                    *ngIf="registrarForm.get('nombre')?.hasError('minlength') && registrarForm.get('nombre')?.touched">
+                        Nombre como minimo <strong>debe tener 4 caracteres</strong>
+                    </span>
+                </div>  -->
+              <!--  Ingredientes -->
+              <div class="input-group mb-3">
+                  <span class="input-group-text">Ingredientes</span>
+                  <input type="text" class="form-control" formControlName="ingredientes">
+                  <span class="text-danger"
+                    *ngIf="registrarForm.get('ingredientes')?.hasError('required') && registrarForm.get('ingredientes')?.touched">
+                        Los ingredientes <strong>son requerido</strong>
+                    </span>
+                    <span class="text-danger"
+                    *ngIf="registrarForm.get('ingredientes')?.hasError('minlength') && registrarForm.get('ingredientes')?.touched">
+                        Ingredientes como minimo <strong>debe tener 6 caracteres</strong>
+                    </span>
+              </div><!-- Fin Ingredientes-->
+              <!-- <div class="col-md-6 mb-3">
+                <label for="nombre">Ingredientes:</label>
+                <input type="text" class="form-control" formControlName = 'ingredientes'>
+                    <span class="text-danger"
+                    *ngIf="registrarForm.get('ingredientes')?.hasError('required') && registrarForm.get('ingredientes')?.touched">
+                        Los ingredientes <strong>son requerido</strong>
+                    </span>
+                    <span class="text-danger"
+                    *ngIf="registrarForm.get('ingredientes')?.hasError('minlength') && registrarForm.get('ingredientes')?.touched">
+                        Ingredientes como minimo <strong>debe tener 6 caracteres</strong>
+                    </span>
+                </div>  -->
+                <!-- Precio -->
+                <div class="input-group mb-3">
+                  <span class="input-group-text" >Precio</span>
+                  <input type="number" class="form-control" formControlName="precio">
+                  <span class="text-danger"
+                  *ngIf="registrarForm.get('precio')?.hasError('required') && registrarForm.get('precio')?.touched">
+                      El precio <strong>es requerido</strong>
+                  </span>
+                  <span class="text-danger"
+                  *ngIf="registrarForm.get('precio')?.hasError('minlength') && registrarForm.get('precio')?.touched">
+                    Precio minimo <strong>debe tener al menos $ 1 </strong>
+                  </span>
+                </div><!--Fin Precio -->
+                <!-- <div class="col-md-6 mb-3">
+                  <label for="dni">Precio:</label>
+                  <input type="number" class="form-control" formControlName="precio">
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('precio')?.hasError('required') && registrarForm.get('precio')?.touched">
+                          El Precio <strong>es requerido</strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('precio')?.hasError('minlength') && registrarForm.get('precio')?.touched">
+                        Precio minimo <strong>debe tener al menos $ 1 </strong>
+                      </span>
+                </div>   -->
+                <!-- Peso -->
+                <div class="input-group mb-3">
+                  <span class="input-group-text" >Peso</span>
+                  <input type="number" class="form-control" placeholder="min 500 max 1000 " formControlName="peso">
+                  <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('required') && registrarForm.get('peso')?.touched">
+                          El Precio <strong>es requerido</strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('min') && registrarForm.get('peso')?.touched">
+                        Peso como mínimo <strong>500 - como | máximo 1000 </strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('max') && registrarForm.get('peso')?.touched">
+                        Peso como mínimo <strong>500 - como máximo 1000 </strong>
+                      </span>
+                </div> <!--Fin Peso -->
+                <!-- <div class="col-md-6 mb-3">
+                  <label for="dni">Peso:</label>
+                  <input type="number" class="form-control" formControlName="peso">
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('required') && registrarForm.get('peso')?.touched">
+                          El Precio <strong>es requerido</strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('min') && registrarForm.get('peso')?.touched">
+                        Peso como mínimo <strong>500 - como máximo 1000 </strong>
+                      </span>
+                      <span class="text-danger"
+                      *ngIf="registrarForm.get('peso')?.hasError('max') && registrarForm.get('peso')?.touched">
+                        Peso como mínimo <strong>500 - como máximo 1000 </strong>
+                      </span>
+                      
+                </div>   -->
+            </div>  <!-- Fin row-->
+          </form>  
+        </ul>
+        <button type="submit" (click)="registrarPizza()" [disabled]="registrarForm.invalid" class="btn btn-primary btn-lg " >Guardar</button>
+        <button (click)="limpiar()" class="btn btn-primary btn-lg float-right" >Limpiar</button>
+      </div>
+    </div>
+</div>

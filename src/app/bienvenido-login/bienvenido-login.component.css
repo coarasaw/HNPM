@@ -1,0 +1,11 @@
+.container {
+    background-image: url(../../assets/HNPM/imagenHPNP1.jpg);
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+}
