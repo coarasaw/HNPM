@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Usuario } from '../clases/usuario';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+  private _refresh$ = new Subject<void>()
 
   constructor(private _firestore: AngularFirestore) { }
+
+  get refresh$(){
+    return this._refresh$;
+  }
 
   crearUsuario(usuarioDato:Usuario){
     //console.log('Grabando Usuario');
@@ -32,4 +38,13 @@ export class UsuarioService {
   getUsuario(documentId: string): Observable<any>{ 
     return  this._firestore.collection('usuarios').doc(documentId).snapshotChanges(); 
   }
+
+  public habilitarCuenta(uid: string) {
+    return this._firestore.collection('usuarios').doc(uid).update({ aprobadoPorAdmin: true });    
+  }
+
+  public deshabilitarCuenta(uid: string) {
+    return this._firestore.collection('usuarios').doc(uid).update({ aprobadoPorAdmin: false });
+  }
+
 }
