@@ -1,35 +1,34 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { EspecialistaService } from '../servicios/especialista.service';
 import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EspecialistaGuard implements CanActivate {
-  [x: string]: any;
+
+  estado: boolean;
+
+  constructor(public srvAuth:EspecialistaService ){}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      let leePerfil = JSON.parse(localStorage.getItem("perfilUsuario"));
-      let tipoPerfil = leePerfil.perfil;
-
-      if (tipoPerfil != 'Especialista') {
-         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Usuario debe tener perfil Especialista.',
-          showConfirmButton: false,
-          timer: 5000
-        })
-         this.router.navigate(['bienvenido']);
-         return false;
-      }else{
-        return true;
-      }
-
-
+      this.estado = this.srvAuth.isActualSessionEspecilista();
+          if (this.estado) {
+            return true;
+          } else {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'ACCESO DENEGADO !!! Usuario debe tener perfil Especialista.',
+              showConfirmButton: false,
+              timer: 5000
+            })
+            return false;
+          }
   }
-
 }
