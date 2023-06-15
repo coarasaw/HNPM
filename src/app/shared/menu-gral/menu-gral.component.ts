@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 export class MenuGralComponent implements OnInit {
   email: string;
   id: string;
+  apellido: string;
+  nombre: string;
+  perfil:string
 
   constructor(private rutas: Router) { }
 
@@ -20,56 +23,76 @@ export class MenuGralComponent implements OnInit {
     this.rutas.navigate(['bienvenido']);
   }
 
-  /* pizzas(){
-    this.rutas.navigate(['pizzas/pizzas']);
-  }
-
+ /*
   busqueda(){
     this.rutas.navigate(['busqueda']);
   } */
 
-  // Peliculas
- /*  altaPelicula(){
-    this.rutas.navigate(['peliculas/altaPeliculas']);
-  }
-  listadoPelicula(){
-    this.rutas.navigate(['peliculas/listadoPeliculas']);
-  } */
 
-  // Actores
-  /* actor(){
-    this.rutas.navigate(['actores/altActor']);
-  }
-  listadoActor(){
-    this.rutas.navigate(['actores/listadoActores']);
-  }
-  peliculaActor(){
-    this.rutas.navigate(['actores/peliculaActor']);
-  } */
-
-  registrar(){
-    
-  }
-
-  habilitarInahabilitar(){
-
-  }
-
-  Perfil(){
-    
-  }
 
   desloguearse(){
-    localStorage.removeItem('user')
+    localStorage.removeItem('userPerfil');
+    localStorage.removeItem('user');
     this.rutas.navigate(['bienvenidoLogin']);
   }
 
   obtener_localstorage(){
     let datoUsuario = JSON.parse(localStorage.getItem('user'));
-    
+    let datoPerfil = JSON.parse(localStorage.getItem('userPerfil'));
+
+
     this.email = datoUsuario.email;
     this.id = datoUsuario.uid;
+    this.perfil = datoPerfil;
+  }
 
-    //console.log('id obtenido del localstorage ',this.id);
+  // Usuario/Paciente
+  misTurnos(){
+    this.rutas.navigate(['paciente/misTurnos']);
+  }
+
+  solicitarTurno(){
+    this.rutas.navigate(['paciente/solicitarTurno']);
+  }
+  cancelarTurnos(){
+    this.rutas.navigate(['paciente/cancelarTurno']);
+  }
+
+  perfirlPaciente(){
+    this.rutas.navigate(['paciente/perfilPaciente']);
+  }
+
+  //Especialista/Medico
+  aceptarTurnoEspecialista(){
+    this.rutas.navigate(['especilista/aceptarTurno']);
+  }
+
+  rechazarTurnoEspecialista(){
+    this.rutas.navigate(['especilista/rechazarTurnos']);
+  }
+
+  finalizarTurnoEspecialista(){
+    this.rutas.navigate(['especilista/finalizarTurno']);
+  }
+
+  crearTurnoEspecialista(){
+    this.rutas.navigate(['especilista/crearTurnos']);
+  }
+
+  resEspecilista(){
+    this.rutas.navigate(['especilista/resEsp']);
+  }
+
+  //Administrador
+  genUsuarioAdmin(){
+    this.rutas.navigate(['admin/genUsAdmin']);
+  }
+
+  habilitarInahabilitar(){
+    this.rutas.navigate(['admin/habEsp']);
+  }
+
+  Perfil(){
+    this.rutas.navigate(['admin/perfilAdm']);
   }
 }

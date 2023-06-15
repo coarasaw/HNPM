@@ -8,15 +8,17 @@ import { GithubComponent } from './github/github.component';
 import { MenuInicioComponent } from './menu-inicio/menu-inicio.component';
 
 
+
 @NgModule({
   declarations: [
     MenuGralComponent,
     SpinnerComponent,
     GithubComponent,
-    MenuInicioComponent
+    MenuInicioComponent,
   ],
   exports:[
     MenuGralComponent,
+    SpinnerComponent,
     GithubComponent,
     MenuInicioComponent
   ],
