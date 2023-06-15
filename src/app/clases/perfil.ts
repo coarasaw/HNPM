@@ -1,5 +1,5 @@
-export class Usuario {
-
+export class Perfil {
+    id: string;
     nombre: string;
     apellido: string;
     edad: string;
@@ -15,7 +15,9 @@ export class Usuario {
     aprobadoPorAdmin?:boolean;
     baja?:boolean;
 
-    constructor(nombre: string,
+    constructor(
+        id: string,
+        nombre: string,
         apellido: string,
         edad: string,
         dni: string,
@@ -29,7 +31,7 @@ export class Usuario {
         fotoPerfilDos?:string,
         aprobadoPorAdmin?:boolean,
         baja?:boolean){
-
+            id: id;
             nombre: nombre;
             apellido: apellido;
             edad: edad;
@@ -45,28 +47,4 @@ export class Usuario {
             aprobadoPorAdmin:aprobadoPorAdmin;
             baja:baja;
     }
-    //
-
-    //uid: string;
-    //username?: string;
-    //fecha: string;
-    //descripcion?:string[];
-    //admin?:boolean;
-    //paciente?:boolean;
-    //password?:string;
-    //disponibilidad?:any;
-    //disponibilidadEsp?:Turnoesp[];
-    //turno?: Turnos;
-
-    //Rocio
-    //public nombre: string = ''; //Obli
-    //public apellido: string = '';//Obli
-    //public edad: number = 0; //Obli
-    //public dni: number = 0; //Obli
-    //public email: string = ''; //Obli
-    //public contraseña: string = ''; //Obli
-    //public perfil: string | null = ''; //Obli
-    //public archivo:string | null='';
-    //public archivo1:string| null='';
-    //public archivo2:string| null='';
 }
