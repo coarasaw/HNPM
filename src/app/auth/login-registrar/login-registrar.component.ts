@@ -9,7 +9,10 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { Especialidad } from 'src/app/clases/especialidad';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Usuario } from 'src/app/clases/usuario';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { CaptchaService } from 'src/app/servicios/captcha.service';
+import { MyValidations } from '../../utils/my-validations';
+import { isProtractorLocator } from 'protractor/built/locators';
 
 @Component({
   selector: 'app-login-registrar',
@@ -23,6 +26,7 @@ export class LoginRegistrarComponent implements OnInit {
   suscriptionList: Subscription = new Subscription();
   listEspecialidad: Especialidad[] = [];
   public obtengoFile:string;
+  captchaGenerado: string;
 
   constructor(private fb: FormBuilder,
               private afAuth : AngularFireAuth,
@@ -30,7 +34,11 @@ export class LoginRegistrarComponent implements OnInit {
               private toastr: ToastrService,
               private _errorService: ErrorService,
               private _especilidadService: EspecialidadService,
-              private _usuarioSerice: UsuarioService) { 
+              private _usuarioSerice: UsuarioService,
+              private _captcha: CaptchaService) {
+
+                this.captchaGenerado = this._captcha.pickearPalabraRandom();
+                console.log(this.captchaGenerado);
 
                 this.registrarForm = this.fb.group({
                   nombre: ['',[Validators.required,Validators.minLength(4)]],
@@ -38,19 +46,34 @@ export class LoginRegistrarComponent implements OnInit {
                   edad: ['',[Validators.required,Validators.minLength(2)]],
                   dni: ['',[Validators.required,Validators.minLength(6)]],
                   especialidad: ['',[Validators.required]],
+                  otraEespecialidad:[''],
                   fotoPerfil: ['',[Validators.required]],
                   correo: ['',[Validators.required, Validators.email]],
                   password: ['',[Validators.required, Validators.minLength(6)]],
-                  repetirPassword: ['']
-                }, { validator: this.ckeckPassword})
+                  repetirPassword: [''],
+                  captcha:['',[Validators.required,MyValidations.isCaptchaWithParam(this.captchaGenerado)]],
+                }, { validator: this.ckeckPassword })
   }
 
   ngOnInit(): void {
     this.getEspecialidad();
+
+
   }
 
+  /* validateCaptch() {
+    const captch = this.captchaGenerado;
+    const confirmarCaptch = this.registrarForm.controls.captcha?.value;
+    if (captch === confirmarCaptch) {
+      return null;
+    } else {
+      return true;
+    }
+    //return captch === confirmarCaptch ? null : { notSame: true }
+  } */
+
   registar(){
-    
+
     this.registrarEspecialista();
     this.router.navigate(['auth/login']);
   }
@@ -64,6 +87,7 @@ export class LoginRegistrarComponent implements OnInit {
        dni: this.registrarForm.get('dni')?.value,
        obraSocial: null,
        especialidad: this.registrarForm.get('especialidad')?.value,
+       otraEespecialidad: this.registrarForm.get('otraEespecialidad')?.value,
        email: this.registrarForm.get('correo')?.value,
        password: this.registrarForm.get('password')?.value,
        perfil: 'Especialista',
@@ -72,8 +96,8 @@ export class LoginRegistrarComponent implements OnInit {
        aprobadoPorAdmin: false,
        baja: false
      }
-    
-     console.log('estamos en registrar usuario paciente:', datoEspecilista.email);
+
+     //console.log('estamos en registrar usuario paciente:', datoEspecilista.email);
      try {
        this.loading = true;
        const usuario = this.registrarForm.get('correo')?.value;
@@ -81,13 +105,14 @@ export class LoginRegistrarComponent implements OnInit {
        //await this.afAuth.createUserWithEmailAndPassword(usuario,password)
        this.afAuth.createUserWithEmailAndPassword(usuario,password).then(rta =>{
          rta.user?.sendEmailVerification();
-         console.log(this.afAuth);
+
+         //console.log(this.afAuth);
          if (this.afAuth) {
            this._usuarioSerice.crearUsuario(datoEspecilista);
            Swal.fire({
              position: 'top-end',
              icon: 'success',
-             title: 'Verifique su Correo parqa autenticar el Alta del Usiario Especilista.',
+             title: 'Verifique su Correo para autenticar el Alta del Usuario Especialista.',
              showConfirmButton: false,
              timer: 5000
            })
@@ -96,7 +121,7 @@ export class LoginRegistrarComponent implements OnInit {
          }
        })
 
-       
+
      } catch (error) {
          setTimeout(function(){
           this.toastr.error(this._errorService.error(error.code),'Error - Especilista');
@@ -112,9 +137,9 @@ export class LoginRegistrarComponent implements OnInit {
     const found = this.listEspecialidad.find((obj) => {
       return obj.nombre === ver;
     });
-    
-    console.log('Ver el valor ver',ver);
-    console.log('Ver el valor found',found);  
+
+    //console.log('Ver el valor ver',ver);
+    //console.log('Ver el valor found',found);
 
     if (found === undefined) {
         console.log("Valor No encontrado");
@@ -128,15 +153,15 @@ export class LoginRegistrarComponent implements OnInit {
         });
     }else{
         console.log("Valor Existe")
-    }    
-    
+    }
+
   }
 
   getEspecialidad(){
     this.suscriptionList == this._especilidadService.getListadoEspecialidad().subscribe(data =>{
       //console.log(data);
       this.listEspecialidad = [];
-      
+
       data.forEach((element:any) => {
         this.listEspecialidad.push({
           id:element.payload.doc.id,
@@ -151,7 +176,7 @@ export class LoginRegistrarComponent implements OnInit {
 
   uploadImage($event){
     const file = $event.target.files[0];
-    this.obtengoFile = "../../assets/peliculas/"+file.name;
+    this.obtengoFile = "assets/especilaista/"+file.name;
   }
 
   ckeckPassword(group: FormGroup): any {
@@ -165,5 +190,5 @@ export class LoginRegistrarComponent implements OnInit {
       this.suscriptionList.unsubscribe();
    }
 
-  
+
 }

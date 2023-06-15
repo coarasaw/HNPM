@@ -4,12 +4,64 @@
     </div>
     <div *ngIf='!loading' class="row">
 
-      <!-- Accesos rapidos -->
-      
-      <div class="container-table table-responsive">
-        <h3 class="text-center">Accesos</h3>
+
+
+      <div class="container-table-login ">
+        <div class="card">
+          <div class="card-body">
+            <div class="container-form">
+              <div>
+                <h2 class="text-center tituloPropio">LOGIN</h2>
+              </div>
+              <!-- <div>
+                <img src="../../../../assets/login/login3.svg" alt="Login" width="100" height="100">
+              </div> -->
+            </div>
+            <form [formGroup]='loginForm' (ngSubmit)="loginSiguiente()">
+              <div class="mb-3">
+                <input type="text" formControlName="usuarioCorreo" class="from-control form-control-lg" placeholder="Correo" [value]="muestroCorreo">
+                <br>
+                <span class="text-danger"
+                *ngIf="loginForm.get('usuarioCorreo')?.hasError('required') && loginForm.get('usuarioCorreo')?.touched">
+                  El correo  <strong>es requerido</strong>
+                </span>
+                <span class="text-danger" *ngIf="loginForm.get('usuarioCorreo')?.hasError('email') && loginForm.get('usuarioCorreo')?.touched">
+                  Correo  <strong>invalido</strong>
+                </span>
+              </div>
+              <div class="mb-3">
+                <input type="password" formControlName="usuarioClave"  class="from-control form-control-lg" placeholder="Contraseña" [value]="muestroClave">
+                <br>
+                <span class="text-danger"
+                *ngIf="loginForm.get('usuarioClave')?.hasError('required') && loginForm.get('usuarioClave')?.touched">
+                La contraseña  <strong>es requerido</strong>
+                </span>
+              </div>
+              <div>
+                <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-lg">Aceptar</button>
+                <button type="button" routerLink="/auth/MenuRegistrar" class="btn btn-primary btn-lg float-right">Registrarse</button>
+                <!-- <button type="button" (click)=automaticoLogin() class="btn btn-primary btn-lg float-right">Login (in)</button> -->
+              </div>
+              <br>
+              <!-- <div class = "text-center" >
+                <button type="button" class="btn btn-primary " (click)=adinistradorLogin() >Administrador (in)</button>
+              </div> -->
+            </form>
+            <br>
+            <!-- <div class="text-center">
+              <a routerLink="/auth/registrar">Registrarse</a>
+              <br>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+       <!-- Accesos rapidos -->
+
+       <div class="container-table table-responsive">
+        <h3 class="text-center">ACCESOS</h3>
         <table class="mx-auto">
-         <!--  <thead class="TitiloTablaColor">
+         <!--  <thead class="TituloTablaColor">
             <tr>
               <th>ADMIN</th>
               <th>ESPECIALISTA</th>
@@ -20,7 +72,12 @@
             </tr>
           </thead> -->
           <tbody>
-            <tr>              
+            <tr>
+              <th colspan="3"><font color ="#ffffff">Pacientes</font></th>
+              <th colspan="2"><font color ="#ffffff">Especilistas</font></th>
+              <th><font color ="#ffffff">Administrador</font></th>
+            </tr>
+            <tr>
               <!--Pacientes-->
               <td>
                 <img
@@ -29,7 +86,7 @@
                   (click)="onPaciente1()"
                   alt="paciente"
                 />
-              </td>              
+              </td>
               <td>
                 <img
                   src="./../../../assets/paciente/paciente21.jpg"
@@ -57,7 +114,7 @@
               </td>
               <td>
                 <img
-                  src="./../../../assets/especilaista/especialista31.jpg"
+                  src="./../../../assets/especilaista/especialista28.jpg"
                   alt="img-usuario"
                   (click)="onEspecialista2()"
                   alt="especialista"
@@ -76,59 +133,8 @@
           </tbody>
         </table>
 
-        
+
 
       </div>
-
-      <div class="container-table-login ">
-        <div class="card">
-          <div class="card-body">
-            <div class="container-form">
-              <div>
-                <h2 class="text-center tituloPropio">LOGIN</h2>
-              </div>
-              <!-- <div>
-                <img src="../../../../assets/login/login3.svg" alt="Login" width="100" height="100">
-              </div> -->
-            </div>
-            <form [formGroup]='loginForm' (ngSubmit)="loginSiguiente()">
-              <div class="mb-3">
-                <input type="text" formControlName="usuarioCorreo" class="from-control form-control-lg" placeholder="Correo" [value]="muestroCorreo">
-                <br>
-                <span class="text-danger" 
-                *ngIf="loginForm.get('usuarioCorreo')?.hasError('required') && loginForm.get('usuarioCorreo')?.touched">
-                  El correo  <strong>es requerido</strong>
-                </span>
-                <span class="text-danger" *ngIf="loginForm.get('usuarioCorreo')?.hasError('email') && loginForm.get('usuarioCorreo')?.touched">
-                  Correo  <strong>invalido</strong>
-                </span>
-              </div>
-              <div class="mb-3">
-                <input type="password" formControlName="usuarioClave"  class="from-control form-control-lg" placeholder="Contraseña" [value]="muestroClave">
-                <br>
-                <span class="text-danger" 
-                *ngIf="loginForm.get('usuarioClave')?.hasError('required') && loginForm.get('usuarioClave')?.touched">
-                La contraseña  <strong>es requerido</strong>
-                </span> 
-              </div>
-              <div>
-                <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-lg">Aceptar</button>
-                <button type="button" routerLink="/auth/MenuRegistrar" class="btn btn-primary btn-lg float-right">Registrarse</button>
-                <!-- <button type="button" (click)=automaticoLogin() class="btn btn-primary btn-lg float-right">Login (in)</button> -->
-              </div>
-              <br>  
-              <!-- <div class = "text-center" >
-                <button type="button" class="btn btn-primary " (click)=adinistradorLogin() >Administrador (in)</button>
-              </div> -->
-            </form>
-            <br>
-            <!-- <div class="text-center">
-              <a routerLink="/auth/registrar">Registrarse</a>
-              <br>
-            </div> -->
-          </div>
-        </div>
-      </div>
-
-    </div> 
-  </div> 
+    </div>
+  </div>

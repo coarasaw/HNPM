@@ -9,6 +9,7 @@ import { LoginRegistrarComponent } from './login-registrar/login-registrar.compo
 import { MenuRegistrarComponent } from './menu-registrar/menu-registrar.component';
 import { LoginRegistrarUsuarioComponent } from './login-registrar-usuario/login-registrar-usuario.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
+import { LoginRegistrarAdminComponent } from './login-registrar-admin/login-registrar-admin.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     LoginRegistrarComponent,
     MenuRegistrarComponent,
     LoginRegistrarUsuarioComponent,
-    VerificarCorreoComponent,   
+    VerificarCorreoComponent,
+    LoginRegistrarAdminComponent,   
   ],
   imports: [
     CommonModule,

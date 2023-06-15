@@ -6,13 +6,16 @@ import { LoginRegistrarComponent } from './login-registrar/login-registrar.compo
 import { MenuRegistrarComponent } from './menu-registrar/menu-registrar.component';
 import { LoginRegistrarUsuarioComponent } from './login-registrar-usuario/login-registrar-usuario.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
+import { LoginRegistrarAdminComponent } from './login-registrar-admin/login-registrar-admin.component';
+import { AutGuard } from '../guards/aut.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'MenuRegistrar', component: MenuRegistrarComponent},  
-  { path: 'registrarPaciente', component: LoginRegistrarUsuarioComponent}, 
-  { path: 'registrar', component: LoginRegistrarComponent}, 
-  { path: 'verificarCorreo', component: VerificarCorreoComponent}, 
+  { path: 'MenuRegistrar', component: MenuRegistrarComponent},
+  { path: 'registrarPaciente', component: LoginRegistrarUsuarioComponent},
+  //{ path: 'registrarAdmin', component: LoginRegistrarAdminComponent},
+  { path: 'registrar', component: LoginRegistrarComponent},
+  { path: 'verificarCorreo', component: VerificarCorreoComponent},
   { path: '', redirectTo: 'login',pathMatch: 'full' }
 ];
 

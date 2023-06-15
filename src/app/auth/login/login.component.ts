@@ -5,7 +5,11 @@ import { ToastrService } from 'ngx-toastr';
 import { ErrorService } from 'src/app/servicios/error.service';
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/user';
-
+import { Perfil } from '../../interfaces/perfil'
+import { Subscription } from 'rxjs';
+import { Usuario } from 'src/app/clases/usuario';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +23,23 @@ export class LoginComponent implements OnInit {
   loading = false;
   muestroCorreo: string;
   muestroClave: string;
- 
+  suscriptionList: Subscription = new Subscription();
+  suscription: Subscription = new Subscription();
+  listUsuario: Usuario[] = [];
+  listPerefil: Perfil[] = [];
+  email:string;
+  perfil:string;
+  perfil2: string;
+
   constructor(private rutas:Router,
               private fb: FormBuilder,
               private afAuth : AngularFireAuth,
               private _errorService: ErrorService,
-              private toastr: ToastrService  
+              private toastr: ToastrService,
+              private unUsuario: UsuarioService,
+              private af: AngularFirestore
   ){
-    
+
     this.loginForm = this.fb.group({
       usuarioCorreo: ['',[Validators.required,Validators.email]],
       usuarioClave: ['', Validators.required]
@@ -36,11 +49,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  automaticoLogin(){
-    //this.VendedorForm.controls['nombres'].setValue(response.body.data.nombres);
+  /* automaticoLogin(){
     this.loginForm.controls['usuarioCorreo'].setValue('danny@gmail.com');
     this.loginForm.controls['usuarioClave'].setValue('pepe123');
-  }
+  } */
 
   adinistradorLogin(){
     this.loginForm.controls['usuarioCorreo'].setValue('admin@gmail.com');
@@ -48,34 +60,72 @@ export class LoginComponent implements OnInit {
   }
 
   loginSiguiente(){
-      //console.log(this.loginForm)
+      console.log('Entramos en loginSiguiente ',this.loginForm)
       const usuario = this.loginForm.get('usuarioCorreo')?.value;
       const password = this.loginForm.get('usuarioClave')?.value;
 
       this.loading = true;
+      setTimeout(() => {
+        console.log('Tiempo');
+      }, 500000);
+
       this.afAuth.signInWithEmailAndPassword(usuario,password).then((respuesta) => {
-        //console.log(respuesta);
-        if (respuesta.user?.emailVerified == false) {
-          this.rutas.navigate(['auth/verificarCorreo'])
-        } else {
+        console.log("Respuesta ",respuesta);
+        if (respuesta.user?.emailVerified === false) {
           this.loading = false;
+          this.rutas.navigate(['/auth/verificarCorreo']);
+        } else {
+          console.log('Grabando Local Storage');
+          this.loading = false;
+          this.perfil = '';
           this.setLocalStorage(respuesta.user);
+          this.setLocalStoragePerfil();
           this.rutas.navigate(['/bienvenido']);
         }
-        
+
       }, error => {
         this.loading = false;
         this.toastr.error(this._errorService.error(error.code),'Error')
         this.loginForm.reset();
-    }) 
+    })
   }
 
   setLocalStorage(user: any){
     const usuario: User = {
       uid: user.uid,
-      email: user.email
-    }
-    localStorage.setItem('user', JSON.stringify(usuario)); 
+      email: user.email,
+    };
+
+    localStorage.setItem('user', JSON.stringify(usuario));
+    this.email = user.email;
+  }
+
+  getPerfil(correo:string){
+    console.log('correo :', correo);
+    this.unUsuario.getPerfilUsuario(correo).subscribe(data => {
+         data.forEach((element:any) => {
+          this.listPerefil.push({
+            id: element.payload.doc.id,
+            ...element.payload.doc.data()
+          })
+         //console.log(element.payload.doc.id);
+         //console.log(element.payload.doc.data());
+       });
+       console.log('Lista Perfil ',this.listPerefil);
+       console.log('Lista Perfil - Tipo ',this.listPerefil[0].perfil);
+       //Grabando localStorage Perfil
+       localStorage.setItem('userPerfil', JSON.stringify(this.listPerefil[0].perfil));
+      });
+  }
+
+  setLocalStoragePerfil(){
+
+    console.log('Paso 1 Leyendo local storag');
+    let datoUsuario = JSON.parse(localStorage.getItem('user'));
+    this.email = datoUsuario.email;
+    console.log('Paso 2 Imprimo email ',this.email);
+    console.log('Paso 3 Grabando Perfil');
+    this.getPerfil(this.email);
   }
 
   onAdmin1(){
@@ -89,12 +139,12 @@ export class LoginComponent implements OnInit {
   }
 
   onEspecialista2(){
-    this.loginForm.controls['usuarioCorreo'].setValue('coarasaw@yahoo.com.ar');                                                   
+    this.loginForm.controls['usuarioCorreo'].setValue('ebgzotxpchynixbfco@tmmbt.com');
     this.loginForm.controls['usuarioClave'].setValue('esp123');
   }
 
   onPaciente1(){
-    this.loginForm.controls['usuarioCorreo'].setValue('coarasadaniel@gmail.com');
+    this.loginForm.controls['usuarioCorreo'].setValue('coarasaw@yahoo.com.ar');
     this.loginForm.controls['usuarioClave'].setValue('pac123');
   }
 
@@ -104,48 +154,15 @@ export class LoginComponent implements OnInit {
   }
 
   onPaciente3(){
-    this.loginForm.controls['usuarioCorreo'].setValue('xubfpiydypoeutdnzq@tmmcv.net');
+    this.loginForm.controls['usuarioCorreo'].setValue('grisgraneros@gmail.com');
     this.loginForm.controls['usuarioClave'].setValue('pac123');
   }
 
 }
 
-/* <p>Listado de Héroes</p>
-
-<div *ngIf="heroeBorrado; else noBorrado">
-    <h3>Héroe borrado: <small>{{ heroeBorrado }}</small> </h3>
-</div>
-
-<ng-template #noBorrado>
-    <h3>No ha borrado nada.</h3>
-</ng-template>
-
-
-<button (click)="borrarHeroe()">
-    Borrar
-</button>
-
-
-<ul>
-    <li *ngFor="let heroe of heroes; let i = index"> 
-        {{ i + 1 }} - {{ heroe }}
-    </li>
-</ul> */
-
-/* import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-listado',
-  templateUrl: './listado.component.html',
-})
-export class ListadoComponent {
-
-  heroes: string[] = ['Spiderman','Ironman','Hulk','Thor','Capitán América'];
-  heroeBorrado: string = '';
-
-  borrarHeroe() {
-    this.heroeBorrado = this.heroes.shift() || '';
-  }
-
-
-} */
+/*
+  atilio.galliussi@gmail.com
+  coarasaw@yahoo.com.ar
+  coarasadaniel@gmail.com
+  leyton3255@gmail.com
+*/

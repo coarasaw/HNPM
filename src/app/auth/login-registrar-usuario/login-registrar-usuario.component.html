@@ -8,7 +8,7 @@
                 <!-- <div class=" ody"> -->
                     <h2 class="text-center tituloPropio" >REGISTRO DE PACIENTE</h2>
                     <form [formGroup]="registrarForm" (ngSubmit)="registar()">
-                    <div class="row formulario"> 
+                    <div class="row formulario">
                         <!--Nombre-->
                         <div class="col-md-6 mb-2">
                             <input type="text" formControlName="nombre" class="form-control form-control-lg" placeholder="Nombre">
@@ -102,22 +102,40 @@
                             </span>
                         </div>
                         <!-- Foto 1 - PERFIL -->
-                        <div class="col-md-6 input-group mb-3">                                
+                        <div class="col-md-6 input-group mb-3">
                             <span class="input-group-text" >PERFIL</span>
                             <input type="file" (change)="uploadImage($event)" class="form-control form-control-lg" formControlName="fotoPerfil">
-                        </div> 
-                         <!-- Foto 2 - PERFIL -->
-                         <div class="col-md-6 input-group mb-3">                                
+                        </div>
+                        <!-- Foto 2 - PERFIL -->
+                        <div class="col-md-6 input-group mb-3">
                             <span class="input-group-text" >PERFIL</span>
                             <input type="file" (change)="uploadImage2($event)" class="form-control form-control-lg" formControlName="fotoPerfil2">
-                        </div>  
-                         
+                        </div>
+                        <!--Captcha Vista-->
+                        <div class="col-md-6 input-group mb-3">
+                          <span class="input-group-text" >CAPTCHA</span>
+                          <input type="text" id="captchaVista" class="form-control form-control-lg" disabled [value]="captchaGenerado">
+                        </div>
+                        <!--Captcha-->
+                        <div class="col-md-6 mb-2">
+                          <input type="text" formControlName="captcha" class="form-control form-control-lg" placeholder="Escribir el Capch que visualiza">
+                          <span class="text-danger"
+                          *ngIf="registrarForm.get('captcha')?.hasError('required') && registrarForm.get('captcha')?.touched">
+                              El Captcha  <strong>es requerido</strong>
+                          </span>
+
+                          <span class="text-danger"
+                          *ngIf="registrarForm.get('captcha')?.hasError('isCaptchaWithParam') && registrarForm.get('captcha')?.touched">
+                              Captcha <strong>deben ser iguales</strong>
+                          </span>
+                        </div>
+
                     </div>
                         <button routerLink="/auth/login" class="btn btn-secondary btn-lg">Volver</button>
                         <button type="submit" [disabled]="registrarForm.invalid" class="btn btn-primary btn-lg float-right">Aceptar</button>
                     </form>
                 <!-- </div> -->
-           <!--  </div> -->  
+           <!--  </div> -->
         <!--</div>-->
     </div>
 </div>

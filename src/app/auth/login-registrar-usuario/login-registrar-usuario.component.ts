@@ -10,7 +10,9 @@ import { ErrorService } from 'src/app/servicios/error.service';
 import { ObraSocialService } from 'src/app/servicios/obra-social.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2'
-
+import
+ { CaptchaService } from 'src/app/servicios/captcha.service';
+import { MyValidations } from '../../utils/my-validations';
 @Component({
   selector: 'app-login-registrar-usuario',
   templateUrl: './login-registrar-usuario.component.html',
@@ -24,6 +26,7 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
   public obtengoFile:string;
   public obtengoFile2:string;
   public gabrarSegundaParte = false;
+  captchaGenerado: string;
 
   constructor(private fb: FormBuilder,
     private afAuth : AngularFireAuth,
@@ -31,8 +34,12 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
     private toastr: ToastrService,
     private _errorService: ErrorService,
     private _obrasocialService: ObraSocialService,
-    private _usuarioSerice: UsuarioService) { 
-      
+    private _usuarioSerice: UsuarioService,
+    private _captcha: CaptchaService) {
+
+      this.captchaGenerado = this._captcha.pickearPalabraRandom();
+                console.log(this.captchaGenerado);
+
       this.registrarForm = this.fb.group({
         nombre: ['',[Validators.required,Validators.minLength(4)]],
         apellido: ['',[Validators.required,Validators.minLength(4)]],
@@ -43,7 +50,8 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
         fotoPerfil2: ['no la guardo aun',[Validators.required]],
         correo: ['',[Validators.required, Validators.email]],
         password: ['',[Validators.required, Validators.minLength(6)]],
-        repetirPassword: ['']
+        repetirPassword: [''],
+        captcha:['',[Validators.required,MyValidations.isCaptchaWithParam(this.captchaGenerado)]],
       }, { validator: this.ckeckPassword})
 
     }
@@ -51,7 +59,7 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.getObrasocial();
   }
-  
+
   registar(){
     console.log('gabrarSegundaParte0 ');
     this.registrarPaciente();
@@ -80,8 +88,9 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
       this.loading = true;
       const usuario = this.registrarForm.get('correo')?.value;
       const password = this.registrarForm.get('password')?.value;
-      await this.afAuth.createUserWithEmailAndPassword(usuario,password)
-      
+      await this.afAuth.createUserWithEmailAndPassword(usuario,password);
+      await (await this.afAuth.currentUser).sendEmailVerification();
+
       console.log(this.afAuth);
       if (this.afAuth) {
         this._usuarioSerice.crearUsuario(datoUsuario);
@@ -104,10 +113,11 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
   }
 
   getObrasocial(){
+    this.loading = true;
     this.suscriptionList == this._obrasocialService.getListadoObraSocial().subscribe(data =>{
       //console.log(data);
       this.listObrasocial = [];
-      
+
       data.forEach((element:any) => {
         this.listObrasocial.push({
           id:element.payload.doc.id,
@@ -140,12 +150,12 @@ export class LoginRegistrarUsuarioComponent implements OnInit {
 
   uploadImage($event){
     const file = $event.target.files[0];
-    this.obtengoFile = "../../assets/peliculas/"+file.name;
+    this.obtengoFile = "assets/paciente/"+file.name;
   }
 
   uploadImage2($event){
     const file = $event.target.files[0];
-    this.obtengoFile2 = "../../assets/peliculas/"+file.name;
+    this.obtengoFile2 = "assets/paciente/"+file.name;
   }
 
   ckeckPassword(group: FormGroup): any {
