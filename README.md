@@ -9,7 +9,7 @@ La clínica OnLine, especialista en salud, cuenta actualmente con consultorios (
 
 
 ## Pantallas de la aplicación
-https://github.com/coarasaw/hnpm/main/assets/redme/imagen1.png
+
 
 Ingresar se debe elegir tipo de usuario quiere ingresar o registrar
 
