@@ -16,6 +16,7 @@ Ingresar se debe elegir tipo de usuario quiere ingresar o registrar
 
 ## Login
 
+![imagen2](https://github.com/coarasaw/HNPM/assets/17881150/4d0bc72b-8962-4f9d-92e4-4d8d00fa6028)
 
 Según cual elija deberá completar distintos datos, todos son obligatorios 
 
@@ -25,4 +26,9 @@ Según cual elija deberá completar distintos datos, todos son obligatorios
 
 ## Si selecciono Paciente
 
+![imagen3](https://github.com/coarasaw/HNPM/assets/17881150/e4d62f48-2560-4b20-b452-167e5e4cc700)
+
 ## Si selecciono Espwecilista
+
+
+![imagen4](https://github.com/coarasaw/HNPM/assets/17881150/190d25e5-4e6f-4b13-bc04-83f5cd5c41be)
