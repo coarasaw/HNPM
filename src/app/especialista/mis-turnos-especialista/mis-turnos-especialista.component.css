@@ -3,8 +3,8 @@
 }
 
 img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   display:block;
   /*border-radius:50%; la imagen la hace redonda*/
   border-collapse: 50%;  /* La imagen la hace cuadrada */
@@ -30,3 +30,11 @@ img {
   font-size: 17px;
   box-shadow: 2px 2px 5px #999;
 }
+
+.datos-turno
+{
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
