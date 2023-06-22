@@ -31,15 +31,19 @@ export class MenuGralComponent implements OnInit {
 
 
   desloguearse(){
-    localStorage.removeItem('userPerfil');
     localStorage.removeItem('user');
+    localStorage.removeItem('userPerfil');
+    localStorage.removeItem('autorizadoPerfil');
+    //localStorage.removeItem('especialaidad');
+    //localStorage.removeItem('especialaidadOtra');
+    localStorage.removeItem('perfil');
+
     this.rutas.navigate(['bienvenidoLogin']);
   }
 
   obtener_localstorage(){
     let datoUsuario = JSON.parse(localStorage.getItem('user'));
     let datoPerfil = JSON.parse(localStorage.getItem('userPerfil'));
-
 
     this.email = datoUsuario.email;
     this.id = datoUsuario.uid;
@@ -63,8 +67,8 @@ export class MenuGralComponent implements OnInit {
   }
 
   //Especialista/Medico
-  aceptarTurnoEspecialista(){
-    this.rutas.navigate(['especilista/aceptarTurno']);
+  misTurnoEspecialista(){
+    this.rutas.navigate(['especilista/misTurnoEsp']);
   }
 
   rechazarTurnoEspecialista(){
@@ -83,9 +87,22 @@ export class MenuGralComponent implements OnInit {
     this.rutas.navigate(['especilista/resEsp']);
   }
 
+  perfirlEspecialista(){
+    this.rutas.navigate(['especilista/perfilEsp'])
+  }
+
+  misPacientes(){
+    this.rutas.navigate(['especilista/misPacientes'])
+  }
+
+
   //Administrador
   genUsuarioAdmin(){
     this.rutas.navigate(['admin/genUsAdmin']);
+  }
+
+  usuarioAdmin(){
+    this.rutas.navigate(['admin/usuariosAdmin']);
   }
 
   habilitarInahabilitar(){

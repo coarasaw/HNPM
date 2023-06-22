@@ -15,7 +15,7 @@
           <ul class="dropdown-menu" aria-labelledby="dropdown01">
               <li> <a class="dropdown-item" (click)=misTurnos()>Mis Turnos</a></li>
               <li> <a class="dropdown-item" (click)=solicitarTurno()>Solicitar Turno</a></li>
-              <li> <a class="dropdown-item" (click)=cancelarTurnos()>Cancelar Turnos</a></li>
+              <!-- <li> <a class="dropdown-item" (click)=cancelarTurnos()>Cancelar Turnos</a></li> -->
               <li> <a class="dropdown-item" (click)=perfirlPaciente()>Mi Perfil</a></li>
           </ul>
         </li>
@@ -25,11 +25,13 @@
           <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">Especialista</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown01">
-              <li> <a class="dropdown-item" (click)=aceptarTurnoEspecialista()>Aceptar Turno</a></li>
-              <li> <a class="dropdown-item" (click)=rechazarTurnoEspecialista()>Rechazar Turno</a></li>
+              <li> <a class="dropdown-item" (click)=misTurnoEspecialista()>Mis Turnos</a></li>
+              <!-- <li> <a class="dropdown-item" (click)=rechazarTurnoEspecialista()>Rechazar Turno</a></li> -->
               <li> <a class="dropdown-item" (click)=finalizarTurnoEspecialista()>Finalizar Turno</a></li>
               <li> <a class="dropdown-item" (click)=crearTurnoEspecialista()>Crear Turnos</a></li>
               <li> <a class="dropdown-item" (click)=resEspecilista()>Reseña</a></li>
+              <li> <a class="dropdown-item" (click)=misPacientes()>Mis Pacientes</a></li>
+              <li> <a class="dropdown-item" (click)=perfirlEspecialista()>Mi Perfil</a></li>
           </ul>
         </li>
 
@@ -40,6 +42,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdown02">
                 <li> <a class="dropdown-item" (click)=genUsuarioAdmin()>Generar usuario admin</a></li>
+                <li> <a class="dropdown-item" (click)=usuarioAdmin()>Usuario</a></li>
                 <li> <a class="dropdown-item" (click)=habilitarInahabilitar()>Habilitar/Inahabilitar Especilista</a></li>
                 <li> <a class="dropdown-item" (click)=Perfil()>Mi Perfil</a></li>
             </ul>
