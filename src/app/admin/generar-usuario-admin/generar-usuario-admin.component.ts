@@ -30,13 +30,13 @@ export class GenerarUsuarioAdminComponent implements OnInit {
               private _usuarioSerice: UsuarioService) {
 
       this.registrarForm = this.fb.group({
-              nombre:           ['',[Validators.required,Validators.minLength(4)]],
-              apellido:         ['',[Validators.required,Validators.minLength(4)]],
-              edad:             ['',[Validators.required,Validators.minLength(2)]],
-              dni:              ['',[Validators.required,Validators.minLength(6)]],
-              fotoPerfil:       ['',[Validators.required]],
-              correo:           ['',[Validators.required, Validators.email]],
-              password:         ['',[Validators.required, Validators.minLength(6)]],
+              nombre: ['',[Validators.required,Validators.minLength(4)]],
+              apellido: ['',[Validators.required,Validators.minLength(4)]],
+              edad: ['',[Validators.required,Validators.minLength(2)]],
+              dni: ['',[Validators.required,Validators.minLength(6)]],
+              fotoPerfil: ['no la guardo aun',[Validators.required]],
+              correo: ['',[Validators.required, Validators.email]],
+              password: ['',[Validators.required, Validators.minLength(6)]],
               repetirPassword:  ['']
           }, { validator: this.ckeckPassword})
   }
@@ -47,10 +47,10 @@ export class GenerarUsuarioAdminComponent implements OnInit {
   registar(){
 
     this.registrarAdministrador();
-    this.router.navigate(['auth/login']);
+    this.router.navigate(['bienvenidoLogin']); //['auth/login']
   }
 
-  registrarAdministrador(){
+  async registrarAdministrador(){
 
     const datoAdministrador: Usuario = {
       nombre: this.registrarForm.get('nombre')?.value,
@@ -59,42 +59,51 @@ export class GenerarUsuarioAdminComponent implements OnInit {
       dni: this.registrarForm.get('dni')?.value,
       obraSocial: null,
       especialidad: null,
+      otraEspecialidad: '',
       email: this.registrarForm.get('correo')?.value,
       password: this.registrarForm.get('password')?.value,
       perfil: 'Administrador',
       fotoPerfilUno: this.obtengoFile,
       fotoPerfilDos:null,
-      aprobadoPorAdmin: false,
-      baja: false
+      aprobadoPorAdmin: 'NO',
+      baja: 'NO',
+      altura:'',
+      peso:'',
+      temperatura:'',
+      presion:'',
+      clave1:'',
+      valor1:'',
+      clave2:'',
+      valor2:'',
+      clave3:'',
+      valor3:''
     }
 
     try {
-      this.loading = true;
-      const usuario = this.registrarForm.get('correo')?.value;
-      const password = this.registrarForm.get('password')?.value;
-      //await this.afAuth.createUserWithEmailAndPassword(usuario,password)
-      this.afAuth.createUserWithEmailAndPassword(usuario,password).then(rta =>{
-        rta.user?.sendEmailVerification();
-        //console.log(this.afAuth);
+        this.loading = true;
+        const usuario = this.registrarForm.get('correo')?.value;
+        const password = this.registrarForm.get('password')?.value;
+        await this.afAuth.createUserWithEmailAndPassword(usuario,password);
+        await (await this.afAuth.currentUser).sendEmailVerification();
+
+        console.log(this.afAuth);
         if (this.afAuth) {
+          this._usuarioSerice.crearUsuario(datoAdministrador);
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Verifique su Correo parqa autenticar el Alta del Usuario Administrador.',
+            title: 'Verifique su Correo para autenticar el Alta del Usuario Administrador.',
             showConfirmButton: false,
             timer: 5000
           })
           this.loading = false;
-        }
-      })
-
-
+      }
     } catch (error) {
+        this.toastr.error(this._errorService.error(error.code),'Error - Paciente');
         setTimeout(function(){
-         this.toastr.error(this._errorService.error(error.code),'Error - Administrador');
+          this.toastr.error(this._errorService.error(error.code),'Error - Paciente');
       }, 6000);
     }
-
   }
 
   uploadImage($event){

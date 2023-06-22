@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,8 +14,7 @@ export class HabilitarInahabCuentaComponent implements OnInit, OnDestroy {
   public listaUsuarioEspecilista: Usuario[] = [];
   suscriptionList: Subscription = new Subscription();
   loading = false;
-  //@Output() seleccionado = new EventEmitter();
-  
+
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
               private _usuarioService:UsuarioService) { }
@@ -43,29 +42,27 @@ export class HabilitarInahabCuentaComponent implements OnInit, OnDestroy {
         //console.log(element.payload.doc.data());
         //console.log("Lista ",this.listaUsuarioEspecilista);
 
+        });
         //Filtramos los Especilistas
         this.listaUsuarioEspecilista = this.listaUsuarioEspecilista.filter((obj) => {
           return obj.perfil === "Especialista";
-        });
-        //console.log("Found ", this.listaUsuarioEspecilista);
+        //console.log("Especilistas Found ", this.listaUsuarioEspecilista);
       });
     })
   }
 
   habilitarCuenta(item: any) {
-    //this.lista = [];
     this._usuarioService.habilitarCuenta(item.id).then((res) => {});
   }
   deshabilitarCuenta(item: any) {
-    //this.lista = [];
     this._usuarioService.deshabilitarCuenta(item.id).then((res) => {});
   }
 
   seleccionar(item: Usuario) {
     //this.seleccionado.emit(item);
   }
- 
+
   ngOnChanges(changes: SimpleChanges): void {
-    // no hay dato que se modifique 
+    // no hay dato que se modifique
   }
 }

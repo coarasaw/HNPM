@@ -4,11 +4,13 @@ import { AutGuard } from '../guards/aut.guard';
 import { GenerarUsuarioAdminComponent } from './generar-usuario-admin/generar-usuario-admin.component';
 import { HabilitarInahabCuentaComponent } from './habilitar-inahab-cuenta/habilitar-inahab-cuenta.component';
 import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
+import { UsuaiosComponent } from './usuaios/usuaios.component';
 
 const routes: Routes = [
   { path: 'genUsAdmin', component: GenerarUsuarioAdminComponent,canActivate:[AutGuard]},
   { path: 'habEsp', component: HabilitarInahabCuentaComponent,canActivate:[AutGuard]},
   { path: 'perfilAdm', component: MiPerfilComponent,canActivate:[AutGuard]},
+  { path: 'usuariosAdmin', component: UsuaiosComponent,canActivate:[AutGuard]},
   { path: '', redirectTo: 'bienvenidoLogin', pathMatch: 'full' },
   { path: '**', pathMatch: 'full', redirectTo: 'bienvenidoLogin' }
 ];

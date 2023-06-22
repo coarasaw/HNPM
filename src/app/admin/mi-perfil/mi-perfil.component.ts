@@ -8,8 +8,9 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 })
 export class MiPerfilComponent implements OnInit {
   loading = false;
-  apeNomb: string;
-  DNI: string;
+  apellido: string;
+  nombre:string;
+  dni: string;
   correo: string;
   perfil: string;
   foto1: string;
@@ -23,11 +24,13 @@ export class MiPerfilComponent implements OnInit {
   leerDatos(){
     let leePerfil = JSON.parse(localStorage.getItem("perfil"));
 
-    this.apeNomb = leePerfil.AN;
-    this.DNI = leePerfil.DNI;
-    this.correo = leePerfil.correo;
+    this.apellido = leePerfil.apellido;
+    this.nombre = leePerfil.nombre;
+    this.dni = leePerfil.dni;
+    this.correo = leePerfil.email;
     this.perfil = leePerfil.perfil;
-    this.foto1 = "../../../"+leePerfil.foto1;
+    this.foto1 = leePerfil.fotoPerfilUno;    ;
+
   }
 
 }

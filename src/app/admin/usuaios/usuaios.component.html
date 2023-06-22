@@ -4,7 +4,7 @@
       <app-spinner></app-spinner>
     </div>
     <br>
-    <h3 class="text-center p-3">Habilitar cuenta a Especialista</h3>
+    <h3 class="text-center p-3">Usuario - Historia Clínica</h3>
     <div *ngIf='!loading' class="container-table table-responsive">
       <!-- <table class="table table-bordered table-striped mx-auto"> -->
       <table class="table table-striped">
@@ -14,15 +14,15 @@
             <!-- <th scope="col">Nombre</th>
             <th scope="col">Apellido</th> -->
             <th scope="col">Edad</th>
-            <th scope="col">Dni</th>
-            <th scope="col">Email</th>
-            <!-- <th scope="col">Fecha de alta</th> -->
-            <th scope="col">Especialidad</th>
-            <th scope="col">Cuenta</th>
+            <th scope="col">Altura</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Temperatura</th>
+            <th scope="col">Presión</th>
+            <th scope="col">Datos</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="table-light" *ngFor="let item of listaUsuarioEspecilista">
+          <tr class="table-light" *ngFor="let item of listaUsuarioPaciente">
             <td>
                <img [src]="'../../../'+item.fotoPerfilUno" alt="Especialista {{ item.nombre +' ' + item.apellido }}" />
                {{ item.nombre +' ' + item.apellido }}
@@ -30,10 +30,10 @@
            <!--  <td>{{ item.nombre }}</td>
             <td>{{ item.apellido }}</td> -->
             <td>{{ item.edad }}</td>
-            <td>{{ item.dni }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.especialidad }}</td>
-            <!-- <td>{{ item.fechaAlta }}</td> -->
+            <td>{{ item.altura }}</td>
+            <td>{{ item.peso }}</td>
+            <td>{{ item.temperatura }}</td>
+            <td>{{ item.presion }}</td>
             <!-- <div class="scrollbar-especialidades">
               <td>
                 <table class="table table-bordered table-striped mb-0">
@@ -49,14 +49,22 @@
               </td>
             </div> -->
             <td>
-              <button class="btn-success" *ngIf="item.aprobadoPorAdmin=='NO'" (click)="habilitarCuenta(item)">Habilitar</button>
-              <button class="btn-danger"  *ngIf="item.aprobadoPorAdmin=='SI'" (click)="deshabilitarCuenta(item)">Deshabilitar</button>
+              <p class="btn-success" *ngIf="!item.valor1==''" >{{ item.clave1 }} : {{ item.valor1 }}</p>
+              <p class="btn-success" *ngIf="!item.valor2==''" >{{ item.clave2 }} : {{ item.valor2 }}</p>
+              <p class="btn-success" *ngIf="!item.valor3==''" >{{ item.clave3 }} : {{ item.valor3 }}</p>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="text-center">
+    <!-- <div class="text-center">
       <button routerLink="/bienvenido" class="btn btn-secondary btn-lg">Volver</button>
+      <button class="btn btn-secondary btn-lg" (click)="exportexcel()">Descargar EXCEL - Pacientes</button>
+    </div> -->
+    <div class="box text-center">
+      <button routerLink="/bienvenido" class="btn btn-primary btn-lg">Volver</button>
+      <button  class="btn btn-primary btn-lg float-right" (click)="exportexcel()">Descargar EXCEL - Pacientes</button>
+      <!-- <button type="button" (click)=automaticoLogin() class="btn btn-primary btn-lg float-right">Login (in)</button> -->
     </div>
 </div>
+

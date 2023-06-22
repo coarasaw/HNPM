@@ -1,4 +1,3 @@
-
 .container-table{
     border: 5 solid black;
 }
@@ -10,12 +9,12 @@ img {
     /*border-radius:50%; la imagen la hace redonda*/
     border-collapse: 50%;  /* La imagen la hace cuadrada */
     box-shadow: 2px 2px 5px #999;
-} 
+}
 
 .scrollbar-especialidades {
     position: relative;
     height:9em;
-    
+
     overflow: auto;
 }
 
@@ -23,7 +22,7 @@ img {
     td{
         font-size: 10px!important;
     }
-} 
+}
 
 .btn-success, .btn-danger {
     border-radius: 5px;

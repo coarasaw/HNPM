@@ -10,28 +10,43 @@
           <thead>
             <tr>
               <th></th>
-              <th></th> 
+              <th></th>
               <th></th>
               <th></th>
             </tr>
           </thead>
-          <tbody style="background-color:#1684d8;">
+          <tbody style="background-color:#042035;">
             <tr>
               <td >
-                <img [src]= " this.foto1 " alt="imagen de perfil" />                 
+                <img [src]="'../../../'+foto1" alt="imagen de perfil" />
               </td>
-              <td WIDTH="20%"><strong>Apellido / Nombre</strong></td>              
-              <td><font color=#ffffff;>{{ this.apeNomb }} </font></td>
+              <td WIDTH="20%"><strong><font color=#ffffff;>Apellido</font></strong>
+                <br><br><br>
+                <font color=#ffffff;>{{ this.apellido }} </font>
+              </td>
+              <td></td>
 
-              <td WIDTH="10%"><strong> DNI  </strong></td>            
-              <td><font color=#ffffff;>{{ this. DNI }} </font></td>
+              <td WIDTH="20%"><strong><font color=#ffffff;>Nombre</font></strong>
+                <br><br><br>
+                <font color=#ffffff;>{{ this.nombre }} </font>
+              </td>
+              <td></td>
 
-              <td WIDTH="15%"><strong>CORREO </strong></td>              
-              <td><font color=#ffffff;>{{ this. correo }}</font></td>
+              <td WIDTH="10%"><strong> <font color=#ffffff;>DNI</font>  </strong>
+                <br><br><br>
+                <font color=#ffffff;>{{ this.dni }} </font>
+              </td>
+              <td></td>
+
+              <td WIDTH="15%"><strong><font color=#ffffff;>CORREO </font></strong>
+                <br><br><br>
+                <font color=#ffffff;>{{ this. correo }}</font>
+              </td>
+              <td></td>
             </tr>
           </tbody>
         </table>
-  
+
         <!-- <h5>Tipo de Usuario: {{ this.authService.usuarioLogeado.roles[0] }}</h5>
         <h5>Nombre: {{ this.authService.usuarioLogeado.nombre }}</h5>
         <h5>Apellido: {{ this.authService.usuarioLogeado.apellido }}</h5>
@@ -79,4 +94,4 @@
     <div class="text-center">
       <button routerLink="/bienvenido" class="btn btn-secondary btn-lg">Volver</button>
     </div>
-</div>    
+</div>
