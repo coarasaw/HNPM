@@ -6,14 +6,15 @@ export class Perfil {
     dni: string;
     obraSocial?: string;
     especialidad?:string;
-    otraEespecialidad?:string;
+    otraEspecialidad?:string;
     email?: string;
     password?: string;
     perfil?: string;
     fotoPerfilUno?:string;
     fotoPerfilDos?:string;
-    aprobadoPorAdmin?:boolean;
-    baja?:boolean;
+    aprobadoPorAdmin?:string;
+    baja?:string;
+
 
     constructor(
         id: string,
@@ -29,8 +30,8 @@ export class Perfil {
         perfil?: string,
         fotoPerfilUno?:string,
         fotoPerfilDos?:string,
-        aprobadoPorAdmin?:boolean,
-        baja?:boolean){
+        aprobadoPorAdmin?:string,
+        baja?:string){
             id: id;
             nombre: nombre;
             apellido: apellido;
