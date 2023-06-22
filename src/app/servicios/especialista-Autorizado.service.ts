@@ -9,15 +9,15 @@ import { Usuario } from '../clases/usuario';
 @Injectable({
   providedIn: 'root'
 })
-export class EspecialistaService {
+export class EspecialistaAutorizadoService {
   user$: Observable<any>;
   suscriptionList: Subscription = new Subscription();
   listUsuario: Usuario[] = [];
   email:string;
-  perfil:string;
+  perfilAutorizado:string;
   devuelvoEstado: boolean;
 
-constructor(public afAuth: AngularFireAuth,
+  constructor(public afAuth: AngularFireAuth,
             private afs: AngularFirestore,
             ) {
               this.user$ = this.afAuth.authState.pipe(
@@ -28,29 +28,28 @@ constructor(public afAuth: AngularFireAuth,
                   return of(null);
                 })
               );
-}
+  }
 
   perfilBuscado():string {
 
-    let datoUsuario = JSON.parse(localStorage.getItem('perfil'));
-    this.perfil = datoUsuario.perfil;
-    console.log('Imprimo Perfil Leido:', this.perfil);
-    return this.perfil;
+    let datoUsuario = JSON.parse(localStorage.getItem('autorizadoPerfil'));
+    this.perfilAutorizado = datoUsuario;
+    console.log('Imprimo perfilAutorizado Leido:', this.perfilAutorizado);
+    return this.perfilAutorizado;
   }
 
   isActualSessionEspecilista(){
 
     const esperando = this.perfilBuscado();
-    console.log('Imprimo Perfil esperado:', esperando);
+    console.log('Imprimo perfilAutorizado esperado:', esperando);
 
-    if (esperando === 'Especialista') {
-      console.log('Paso 7 auth Servicio Especialista - perfil  ',this.perfil);
+    if (esperando === 'SI') {
+      console.log('Paso 7 auth Servicio Especialista - perfil  ',this.perfilAutorizado);
       return true;
     }else{
-      console.log('Paso 8 auth Servicio Especialista -  NO',this.perfil);
+      console.log('Paso 8 auth Servicio Especialista -  NO',this.perfilAutorizado);
       return false;
     }
-
   }
 
 }
