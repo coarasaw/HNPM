@@ -1,5 +1,62 @@
 <app-menu-gral></app-menu-gral>
-<div class="conteiner">
-    <br><br><br>
-    <p>mis-turnos works!</p>
+<div class="conteiner mt-3">
+    <div *ngIf='loading' class="d-flex justify-content-center mt-5">
+      <app-spinner></app-spinner>
+    </div>
+    <br>
+    <div>
+      <img [src]="'../../../'+this.fotoPerfilUnoPaciente" alt="{{ this.nombrePaciente +' ' + this.apellidoPaciente }}" />
+                 {{ this.nombrePaciente +' ' + this.apellidoPaciente }}
+    </div>
+    <h3 class="text-center p-3">Mis Turnos</h3>
+
+    <div *ngIf='!loading' class="container-table table-responsive">
+      <!-- <table class="table table-bordered table-striped mx-auto"> -->
+      <table class="table table-striped">
+        <thead class="thead-Active">
+          <tr class="table-dark">
+            <th scope="col">Foto Especilista</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
+            <th scope="col">ACCIÓN CANCELAR</th>
+            <th scope="col">ACCIÓN CALIFICAR</th>
+            <!--<th scope="col">Especialidad</th> -->
+            <!--<th scope="col">Cuenta</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-light" *ngFor="let item of listaTurnoPaciente" >
+            <td>
+              <img [src]="'../../../'+item.fotoEspecilista" alt="Especialista {{ item.nombreEspecilista
+                +' ' + item.apellidoEspecilista }}" />
+              {{ item.nombreEspecilista +' ' + item.apellidoEspecilista }}
+           </td>
+           <!--  <td>{{ item.nombre }}</td>
+            <td>{{ item.apellido }}</td> -->
+            <td>{{ item.especialidad }}</td>
+            <td>{{ item.fechaSolicitada }}</td>
+            <td>{{ item.estado }}</td>
+            <!--<td>{{ item.especialidad }}</td>-->
+            <!-- <td>{{ item.fechaAlta }}</td> -->
+            <!-- <div class="scrollbar-especialidades">-->
+
+            <td>
+              <input type="text" class="datos-turno" placeholder="Motivo Cancelado" *ngIf="item.estado=='PENDIENTE'" [(ngModel)]="inputCancelado">
+              <button class="btn-danger" *ngIf="item.estado=='PENDIENTE'  " (click)="cancelarTurno(item)">CANCELAR</button>
+              <p *ngIf="item.estado=='CANCELADO' "> {{item.canceladoComentario}}</p>
+            </td>
+
+            <td>
+              <input type="text" class="datos-turno" placeholder="Atención del Especialista" *ngIf="item.estado=='FINALIZADO' && item.atencion=='' " [(ngModel)]="inputCalificacion">
+              <button class="btn-success"  *ngIf="item.estado=='FINALIZADO' && item.atencion=='' " (click)="calificarAtencion(item)">CALIFICAR</button>
+              <p *ngIf="item.estado=='FINALIZADO' && item.atencion!='' "> {{item.atencion}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <button routerLink="/bienvenido" class="btn btn-secondary btn-lg">Volver</button>
+    </div>
 </div>

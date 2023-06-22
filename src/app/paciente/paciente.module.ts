@@ -7,6 +7,7 @@ import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.compo
 import { CancelarTurnoComponent } from './cancelar-turno/cancelar-turno.component';
 import { PerfilPacienteComponent } from './perfil-paciente/perfil-paciente.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     PacienteRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class PacienteModule { }
