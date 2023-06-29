@@ -20,16 +20,13 @@ Ingresar se debe elegir tipo de usuario quiere ingresar o registrar
 
 Según cual elija deberá completar distintos datos, todos son obligatorios 
 
-
 ## Registrar
-
 
 ## Si selecciono Paciente
 
 ![imagen3](https://github.com/coarasaw/HNPM/assets/17881150/e4d62f48-2560-4b20-b452-167e5e4cc700)
 
 ## Si selecciono Espwecilista
-
 
 ![imagen4](https://github.com/coarasaw/HNPM/assets/17881150/190d25e5-4e6f-4b13-bc04-83f5cd5c41be)
 
